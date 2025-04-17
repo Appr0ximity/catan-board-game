@@ -20,6 +20,21 @@ impl fmt::Display for Resource {
     }
 }
 
+fn remove_one(numbers: &[u8], to_remove: u8) -> Vec<u8> {
+    let mut removed = false;
+    numbers.iter()
+        .filter_map(|&n| {
+            if n == to_remove && !removed {
+                removed = true;
+                None
+            } else {
+                Some(n)
+            }
+        })
+        .collect()
+}
+
+
 #[derive(Debug, Clone)]
 pub struct Tile {
     pub resource: Resource,
@@ -113,10 +128,8 @@ impl CatanBoard {
                 println!("  Trying number {} at tile {}", num, tile_idx);
                 
                 // Create new available numbers list without the used number
-                let new_available = available_numbers.iter()
-                    .filter(|&&n| n != num)
-                    .copied()
-                    .collect::<Vec<_>>();
+                let new_available = remove_one(available_numbers, num);
+
                 
                 // Recurse to the next tile
                 if self.place_numbers_backtracking(tile_idx + 1, &new_available, desert_idx) {
