@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "catan_core",
+    "catan_server"
+]

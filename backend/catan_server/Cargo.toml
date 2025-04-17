@@ -1,0 +1,7 @@
+[package]
+name = "catan_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+catan_core = { path = "../catan_core" }
